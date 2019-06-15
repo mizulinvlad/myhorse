@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var rate = 1652547; // бит Курс
+    var rate = 558425; // бит Курс
     var max_rub = 356245;
     var min_rub = 500;
     var btc = $("#inputAmountBtc").attr('placeholder');
@@ -34,12 +34,12 @@
                 $("#inputAmountRub").val(rub);
             }
         } else {
-            console.log('RUB: ' + $(this).val());
+            //console.log('RUB: ' + $(this).val());
             var rub = $(this).val();
             var btc = rub / rate;
-            console.log('btc: ' + btc)
+            //console.log('btc: ' + btc)
             btc = Number((btc).toFixed(8));
-            console.log('btc toFixed:' + btc)
+            //console.log('btc toFixed:' + btc)
             if (btc) {
                 $("#inputAmountBtc").val(btc);
             }
@@ -63,10 +63,10 @@
             if (!$(this).hasClass("parsley-error")) {
                 $(this).addClass("parsley-error")
             }
-            console.log('number err')
+            //console.log('number err')
         } else {
             $(this).removeClass("parsley-error")
-            console.log('number OK')
+            //console.log('number OK')
         }
         check_form();
     });
