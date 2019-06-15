@@ -26,7 +26,7 @@
         }
 
         if ($(this).attr('id').indexOf("Btc") > -1) {
-            console.log('BTC: ' + $(this).val());
+            //console.log('BTC: ' + $(this).val());
             var btc = $(this).val();
             var rub = btc * rate;
             rub = Number((rub).toFixed(0));
