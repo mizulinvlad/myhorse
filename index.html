@@ -1,0 +1,160 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Bitcoin exchanger</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="src/font-awesome.css">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-3">BTC-RAISE</h1>
+			<section class="panel corner-flip" style="padding:10px">
+				<div class="panel-heading">
+					<h3>Биткоин → QIWI</h3>
+				</div>
+				<!--<div class="panel-heading">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">
+								<small><strong>1 BTC</strong> = <strong>1 RUB</strong></small>
+							</div>
+						</div>
+					</div>
+				</div>-->
+				<div class="panel-body">
+					<!--<form action="order_btc2rub.php" class="form" data-alignlabel="left" data-collabel="3" id="form_btcrub" method="post" name="form_btcrub">-->
+						<input name="ts" type="hidden" value=""> <input name="comment" type="hidden" value=""> <input name="order_id" type="hidden" value="">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Отдаете</label>
+									<div class="input-group">
+										<input autocomplete="off" class="form-control amount input-md" id="inputAmountBtc" name="btc_amount" placeholder="0.02012194" type="text" value=""> <span class="input-group-addon">BTC</span>
+									</div>
+								</div>
+								<div style="height:20px;">
+									<ul class="parsley-error-list" id="minalert" style="display:none">
+										<li class="max" style="display: list-item;">Минимальный обмен – <strong>500 RUB</strong></li>
+									</ul>
+									<!--<ul class="parsley-error-list" id="maxalert" style="display:none">
+										<li class="max" style="display: list-item;">Лимит – <strong>356245 RUB</strong></li>
+									</ul>-->
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Получаете</label>
+									<div class="input-group">
+										<input autocomplete="off" class="form-control amount input-md" id="inputAmountRub" name="rub_amount" placeholder="1236" style="" type="text">
+										<div class="input-group-addon">
+											RUB
+										</div>
+									</div>
+									<small class="text-danger">Резерв 985456р.</small>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Ваш номер телефона (Qiwi кошелька) на который будет оплата +7</label>
+							<div>
+								<input class="form-control input-md" id="inputQiwiNumber" placeholder="+7" name="number" type="text" value="" />
+							</div>
+						</div>
+						<div class="form-group" style="margin-top:40px;">
+							<button class="btn btn-primary btn-lg btn-block" disabled="disabled" onclick="prepareModal();" id="submitBtn" type="submit">Обменять</button>
+						</div>
+						<div class="form-group" style="margin-top:40px;text-align:center">
+							<strong class="text-success">Заказы обрабатываются автоматически 24/7</strong>
+						</div>
+					</form>
+				</div>
+			</section>
+      </div>
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Обмен BTC</h4>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      </div>
+		      <div class="modal-body">
+		        <div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Отдаете</label>
+							<div class="input-group">
+								<input class="form-control amount input-md" readonly="" id="inputAmountBtcModal" type="text" value=""> <span class="input-group-addon">BTC</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Получаете</label>
+							<div class="input-group">
+								<input class="form-control amount input-md" readonly="" id="inputAmountRubModal" style="" type="text">
+								<div class="input-group-addon">
+									RUB
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label">Ваш номер телефона (Qiwi кошелька) на который будет оплата</label>
+							<div>
+								<input class="form-control input-md" readonly="" id="inputQiwiNumberModal" type="text" value="">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label">Кошелек BTC для оплаты (Ожидается перевод)</label>
+							<div>
+								<input class="form-control input-md" readonly="" id="inputCardNumberModal" type="text" value="">
+								<p class="text-danger">Необходимо сделать перевод в размере <span id="amountSum"></span> BTC.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" disabled="" class="btn btn-primary">Ожидание оплаты... <i class="fa fa-spinner fa-spin" aria-hidden="true"></i></button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+    </div> <!-- /container -->
+
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="src/script.js"></script>
+
+    <script type="text/javascript">
+    	function prepareModal() {
+    		$('#inputAmountRubModal').val($('#inputAmountRub').val());
+    		$('#inputAmountBtcModal').val($('#inputAmountBtc').val());
+    		$('#inputQiwiNumberModal').val($('#inputQiwiNumber').val());
+    		$('#amountSum').html($('#inputAmountBtc').val());
+    		$('#inputCardNumberModal').val('17k5NZnYbAKJBHgEqvkRFWc5L6DgUnsTH3');
+
+	    	$('#myModal').modal('show');
+	    }
+    </script>
+  </body>
+</html>
